@@ -1,9 +1,19 @@
 package com.gmail.prestonhigg17;
 
-public class Main
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Week2EnchantTable extends JavaPlugin
 {
-    public static void main(String[] args)
+    @Override
+    public void onEnable()
     {
-        System.out.println("Hello world!");
+        super.onEnable();
+        getServer().getPluginManager().registerEvents(new EnchantTableClickEventListener(), this);
+    }
+
+    @Override
+    public void onDisable()
+    {
+        super.onDisable();
     }
 }

@@ -1,2 +1,6 @@
-package com.gmail.prestonhigg17;public class OpenGUI {
+package com.gmail.prestonhigg17;
+
+public class OpenGUI
+{
+    
 }
