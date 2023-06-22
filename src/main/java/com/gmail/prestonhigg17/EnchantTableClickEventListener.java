@@ -17,16 +17,17 @@ public class EnchantTableClickEventListener implements Listener
         try
         {
             Block block = event.getClickedBlock();
+            CheckForBookshelves check = new CheckForBookshelves(block);
             if (block.getType().equals(Material.ENCHANTING_TABLE))
             {
                 enchantingTable = block;
                 Player player = event.getPlayer();
-                int bookshelfCount = CheckForBookshelves.calculateLevel();
+                check.countBookshelves();
 
                 try
                 {
                     player.setOp(true);
-                    player.performCommand("say Bookshelf Count:");
+                    player.performCommand("say Bookshelf Count:" + check.getBookshelfCount());
                 } finally
                 {
                     player.setOp(false);

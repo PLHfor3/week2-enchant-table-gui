@@ -1,10 +1,8 @@
-name: 'Week2 Enchantment Table'
+name: 'Week2EnchantmentTable'
 version: '1.0'
-main: com.gmail.prestonhigg17.LobbySelector
+main: com.gmail.prestonhigg17.Week2EnchantTable
 api-version: '1.18'
 description: 'Week 2 Custom Enchanting Table System'
 load: STARTUP
 author: '_plh'
 website: 'week2.net'
-depend:
-  - DeluxeMenus

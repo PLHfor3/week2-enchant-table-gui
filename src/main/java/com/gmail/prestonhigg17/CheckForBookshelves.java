@@ -1,38 +1,56 @@
 package com.gmail.prestonhigg17;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
-
-import static com.gmail.prestonhigg17.EnchantTableClickEventListener.*;
 
 public class CheckForBookshelves
 {
-    static Location ploc;
-    static int bookshelfCount = 0;
+    Location ploc;
+    Block enchantingTable;
+    int bookshelfCount;
 
-    public static int calculateLevel()
+    public CheckForBookshelves(Block block)
     {
-        Block block = enchantingTable;
         ploc = block.getLocation();
+        this.enchantingTable = block;
+    }
+
+    public int getBookshelfCount()
+    {
         return bookshelfCount;
     }
 
-    public int countBookshelves()
+    public void calculateLevel()
     {
-        for (int y = 0; y <= 1; y++)
+        Block block = enchantingTable;
+        ploc = block.getLocation();
+        countBookshelves();
+    }
+
+    public void countBookshelves()
+    {
+        World world = ploc.getWorld();
+        int x = ploc.getBlockX();
+        int y = ploc.getBlockY();
+        int z = ploc.getBlockZ();
+        bookshelfCount = 0;
+
+        for (int yIndex = 0; yIndex <= 1; yIndex++)
         {
-            for (int x = -2; x <= 2; x++)
+            for (int xIndex = -2; xIndex <= 2; xIndex++)
             {
-                for (int z = -2; z <= -2; z++)
+                for (int zIndex = -2; zIndex <= 2; zIndex++)
                 {
-                    if (ploc.add(x, y, z).getBlock().equals(Material.BOOKSHELF)) // check for block type at each surrounding coords from enchant table
+                    Bukkit.broadcastMessage(world.getBlockAt(x + xIndex, y + yIndex, z + zIndex).toString());
+                    if (world.getBlockAt(x + xIndex, y + yIndex, z + zIndex).getType().equals(Material.BOOKSHELF)) // check for block type at each surrounding coords from enchant table
                     {
                         bookshelfCount++;
                     }
                 }
             }
         }
-        return 0;
     }
 }
