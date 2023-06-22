@@ -17,17 +17,20 @@ public class EnchantTableClickEventListener implements Listener
         try
         {
             Block block = event.getClickedBlock();
-            CheckForBookshelves check = new CheckForBookshelves(block);
+            CheckForBookshelves checkForBookshelves = new CheckForBookshelves(block);
+            CheckForAir checkForAir = new CheckForAir(block);
             if (block.getType().equals(Material.ENCHANTING_TABLE))
             {
                 enchantingTable = block;
                 Player player = event.getPlayer();
-                check.countBookshelves();
+                checkForBookshelves.countBookshelves();
+                checkForAir.countAirBlocks();
 
                 try
                 {
                     player.setOp(true);
-                    player.performCommand("say Bookshelf Count:" + check.getBookshelfCount());
+                    player.performCommand("say Bookshelf Count: " + checkForBookshelves.getBookshelfCount());
+                    player.performCommand("say Air Count: " + checkForAir.getAirBlockCount());
                 } finally
                 {
                     player.setOp(false);

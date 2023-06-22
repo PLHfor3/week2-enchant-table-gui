@@ -1,6 +1,5 @@
 package com.gmail.prestonhigg17;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -8,14 +7,12 @@ import org.bukkit.block.Block;
 
 public class CheckForBookshelves
 {
-    Location ploc;
-    Block enchantingTable;
-    int bookshelfCount;
+    private Location tableLocation;
+    private int bookshelfCount;
 
     public CheckForBookshelves(Block block)
     {
-        ploc = block.getLocation();
-        this.enchantingTable = block;
+        this.tableLocation = block.getLocation();
     }
 
     public int getBookshelfCount()
@@ -25,17 +22,15 @@ public class CheckForBookshelves
 
     public void calculateLevel()
     {
-        Block block = enchantingTable;
-        ploc = block.getLocation();
-        countBookshelves();
+
     }
 
     public void countBookshelves()
     {
-        World world = ploc.getWorld();
-        int x = ploc.getBlockX();
-        int y = ploc.getBlockY();
-        int z = ploc.getBlockZ();
+        World world = tableLocation.getWorld();
+        int x = tableLocation.getBlockX();
+        int y = tableLocation.getBlockY();
+        int z = tableLocation.getBlockZ();
         bookshelfCount = 0;
 
         for (int yIndex = 0; yIndex <= 1; yIndex++)
@@ -44,12 +39,35 @@ public class CheckForBookshelves
             {
                 for (int zIndex = -2; zIndex <= 2; zIndex++)
                 {
-                    Bukkit.broadcastMessage(world.getBlockAt(x + xIndex, y + yIndex, z + zIndex).toString());
                     if (world.getBlockAt(x + xIndex, y + yIndex, z + zIndex).getType().equals(Material.BOOKSHELF)) // check for block type at each surrounding coords from enchant table
                     {
                         bookshelfCount++;
                     }
                 }
+            }
+        }
+        removeCornerShelvesFromCorner(world, x, y, z);
+    }
+
+    public void removeCornerShelvesFromCorner(World world, int x, int y, int z)
+    {
+        for (int yIndex = 0; yIndex <= 1; yIndex++)
+        {
+            if (world.getBlockAt(x + 2, y + yIndex, z + 2).getType().equals(Material.BOOKSHELF)) // check for block type at each surrounding coords from enchant table
+            {
+                bookshelfCount--;
+            }
+            if (world.getBlockAt(x + 2, y + yIndex, z - 2).getType().equals(Material.BOOKSHELF)) // check for block type at each surrounding coords from enchant table
+            {
+                bookshelfCount--;
+            }
+            if (world.getBlockAt(x - 2, y + yIndex, z + 2).getType().equals(Material.BOOKSHELF)) // check for block type at each surrounding coords from enchant table
+            {
+                bookshelfCount--;
+            }
+            if (world.getBlockAt(x - 2, y + yIndex, z - 2).getType().equals(Material.BOOKSHELF)) // check for block type at each surrounding coords from enchant table
+            {
+                bookshelfCount--;
             }
         }
     }
