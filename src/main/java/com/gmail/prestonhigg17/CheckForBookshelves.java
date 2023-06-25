@@ -7,22 +7,18 @@ import org.bukkit.block.Block;
 
 public class CheckForBookshelves
 {
-    private Location tableLocation;
+    private final Location tableLocation;
     private int bookshelfCount;
 
     public CheckForBookshelves(Block block)
     {
         this.tableLocation = block.getLocation();
+        countBookshelves();
     }
 
     public int getBookshelfCount()
     {
         return bookshelfCount;
-    }
-
-    public void calculateLevel()
-    {
-
     }
 
     public void countBookshelves()
@@ -49,7 +45,7 @@ public class CheckForBookshelves
         removeCornerShelvesFromCorner(world, x, y, z);
     }
 
-    public void removeCornerShelvesFromCorner(World world, int x, int y, int z)
+    private void removeCornerShelvesFromCorner(World world, int x, int y, int z)
     {
         for (int yIndex = 0; yIndex <= 1; yIndex++)
         {

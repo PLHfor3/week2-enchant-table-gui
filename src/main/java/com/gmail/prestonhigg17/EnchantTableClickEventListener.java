@@ -1,5 +1,6 @@
 package com.gmail.prestonhigg17;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -9,32 +10,24 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class EnchantTableClickEventListener implements Listener
 {
-    public static Block enchantingTable;
-
     @EventHandler
     public void onPlayerClickEnchantTableListener(PlayerInteractEvent event)
     {
         try
         {
             Block block = event.getClickedBlock();
-            CheckForBookshelves checkForBookshelves = new CheckForBookshelves(block);
-            CheckForAir checkForAir = new CheckForAir(block);
             if (block.getType().equals(Material.ENCHANTING_TABLE))
             {
-                enchantingTable = block;
-                Player player = event.getPlayer();
-                checkForBookshelves.countBookshelves();
-                checkForAir.countAirBlocks();
-
-                try
-                {
-                    player.setOp(true);
-                    player.performCommand("say Bookshelf Count: " + checkForBookshelves.getBookshelfCount());
-                    player.performCommand("say Air Count: " + checkForAir.getAirBlockCount());
-                } finally
-                {
-                    player.setOp(false);
-                }
+                CheckForBookshelves checkForBookshelves = new CheckForBookshelves(block);
+                CheckForAir checkForAir = new CheckForAir(block);
+                CalculateTableLevel calculateTableLevel = new CalculateTableLevel(checkForBookshelves.getBookshelfCount(), checkForAir.getAirBlockCount());
+                Bukkit.broadcastMessage(block.toString());
+                Bukkit.broadcastMessage("Bookshelf Count: " + checkForBookshelves.getBookshelfCount());
+                Bukkit.broadcastMessage("Air Count: " + checkForAir.getAirBlockCount());
+                int array[] = calculateTableLevel.getTableLevel();
+                Bukkit.broadcastMessage("Calculated Shelf Amount: " + array[0]);
+                Bukkit.broadcastMessage("Calculated Shelf Amount: " + array[1]);
+                Bukkit.broadcastMessage("Calculated Shelf Amount: " + array[2]);
             }
         } catch (NullPointerException e)
         {

@@ -37,7 +37,7 @@
         <dependency>
             <groupId>net.Indyuce</groupId>
             <artifactId>MMOItems-API</artifactId>
-            <version>6.9.4-20230620.172834-13</version>
+            <version>6.9.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.lumine</groupId>

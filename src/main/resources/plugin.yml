@@ -6,3 +6,7 @@ description: 'Week 2 Custom Enchanting Table System'
 load: STARTUP
 author: '_plh'
 website: 'week2.net'
+depend:
+  - MMOItems
+  - MMOCore
+  - MythicLib

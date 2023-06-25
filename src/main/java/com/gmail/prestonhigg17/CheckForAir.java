@@ -7,17 +7,18 @@ import org.bukkit.block.Block;
 
 public class CheckForAir
 {
-    private Location tableLocation;
+    private final Location tableLocation;
     private int shelvesToRemoveFromCount; //defines how many bookshelves should be removed from the total number calculated
-
-    public int getAirBlockCount()
-    {
-        return shelvesToRemoveFromCount;
-    }
 
     public CheckForAir(Block block)
     {
         this.tableLocation = block.getLocation();
+        countAirBlocks();
+    }
+
+    public int getAirBlockCount()
+    {
+        return shelvesToRemoveFromCount;
     }
 
     public void countAirBlocks()
